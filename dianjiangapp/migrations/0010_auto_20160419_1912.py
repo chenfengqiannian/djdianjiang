@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='gongcheng',
             name='autotime',
-            field=models.DateTimeField(default=datetime.datetime(2016, 4, 19, 11, 12, 45, 912000, tzinfo=utc), auto_now=True),
+            field=models.DateTimeField(default=datetime.datetime(2016, 4, 19, 11, 12, 45, 912000), auto_now=True),
             preserve_default=False,
         ),
         migrations.AddField(
