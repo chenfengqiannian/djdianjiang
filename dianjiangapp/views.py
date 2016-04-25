@@ -320,8 +320,8 @@ def gongchengapi(request):
                 for k in fields:
                     if(hasattr(object,k)):
                         if(k=='reship'):
-                            gongchengdict['gongchenggj']=objecttodict(object.reship.filter(job=0),['phone','touxiang'])
-                            gongchengdict['gongcengdj']=objecttodict(object.reship.filter(job=1),['phone','touxiang'])
+                            gongchengdict['gongchenggj']=objecttodict(object.reship.filter(job=0),['phone','touxiang','gongzhong','xingming','dengji','rixin'])
+                            gongchengdict['gongcengdj']=objecttodict(object.reship.filter(job=1),['phone','touxiang','gongzhong','xingming','dengji','rixin'])
                             continue
                         
                         gongchengdict[k]=getattr(object,k)

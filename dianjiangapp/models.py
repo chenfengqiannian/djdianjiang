@@ -4,7 +4,7 @@ from fields import ListField
 
 import md5
 from django.template.defaultfilters import default
-from test.test_imageop import MAX_LEN
+
 m = md5.new()
 # Create your models here.
 
