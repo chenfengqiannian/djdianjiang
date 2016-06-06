@@ -24,5 +24,10 @@ urlpatterns = [
     url(r'^imageupapi/','dianjiangapp.views.imageup'),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve',{'document_root': settings.MEDIA_ROOT}),
     url(r'^gongchengapi/','dianjiangapp.views.gongchengapi'),
-    url(r'^shezhiapi/','dianjiangapp.views.shezhiapi')
+    url(r'^shezhiapi/','dianjiangapp.views.shezhiapi'),
+    url(r'^signapi/','dianjiangapp.views.signapi'),
+    url(r'^zhifubaosignapi/','dianjiangapp.zhifubaosignapi'),
+    url(r'^weixinsignapi/','dianjiangapp.weixinsignapi')
+    
+    
 ]

@@ -6,8 +6,26 @@ from django.http.response import HttpResponseNotFound, HttpResponseNotAllowed,Ht
 from dianjiangapp.form import AddForm
 from _ast import IsNot
 from time import timezone
-
+from dianjiangapp.myras import *
+from xml.etree import ElementTree  
 # Create your views here.
+
+
+def read_xml(text,findname):  
+    
+    root = ElementTree.fromstring(text)  
+   
+    node_find = root.find(findname)  
+    return (node_find.text)  
+      
+
+
+
+
+
+
+
+
 
 def myprint(ni):
     print ni
@@ -219,7 +237,7 @@ def userinapi(request):
             
             if(myjob!=-1):
                 myprint (jsonlistout)
-                return HttpResponse(json.dumps(jsonlistout))
+                return JsonResponse(jsonlistout,safe=False)
             else:
                 return JsonResponse(jsonmap)
             
@@ -281,7 +299,7 @@ def imageup(request):
         form = AddForm()
 
         return render(request,'post.html', {'form': form})      
-def gongchengapi(request):
+def   gongchengapi(request):
     try:
         if request.method == 'POST':
             data = json.loads(request.body)
@@ -355,4 +373,61 @@ def shezhiapi(request):
     except Exception,e:
             myprint (e)        
         
+def zhifubaosignapi(request):
+    
+    if request.method == 'POST':
+        mtrade_status=request.POST.get('trade_status')
+        subject=request.POST.get('subject')
+        if(mtrade_status=='TRADE_SUCCESS' or mtrade_status=='TRADE_FINISHED' ):
+            zhidugongcheng=gongcheng.objects.get(id=subject)
+            if(zhidugongcheng.zhuangtai<=3 and zhidugongcheng.zhuangtai>=0):
+                zhidugongcheng.zhuangtai=4
+                zhidugongcheng.save()
+            if(zhidugongcheng.zhuangtai==5):
+                zhidugongcheng.zhuangtai=6
+                zhidugongcheng.save()  
+            
         
+        
+        return HttpResponse("success")
+    
+    
+def signapi(request):
+    
+    if request.method == 'POST':
+        message=request.POST.get('orderInfo')
+        
+        qw=json.loads(message)
+        print message
+        print qw
+        jk=qw['orderInfo']
+        print jk
+
+    
+        return HttpResponse(sign(jk))
+    if request.method == 'GET':
+        sign("KOKO")
+        
+        return HttpResponse(sign("KOKO"))
+    
+    
+def weixinsignapi(request):
+    
+    if request.method == 'POST':
+        xml=request.body
+        mtrade_status=(read_xml(xml,"return_code"))
+        
+        if(mtrade_status=='SUCCESS'):
+            zhidugongcheng=gongcheng.objects.get(id=(read_xml(xml,"attach")))
+            if(zhidugongcheng.zhuangtai<=3 and zhidugongcheng.zhuangtai>=0):
+                zhidugongcheng.zhuangtai=4
+                zhidugongcheng.save()
+            if(zhidugongcheng.zhuangtai==5):
+                zhidugongcheng.zhuangtai=6
+                zhidugongcheng.save()  
+            
+           
+            
+        
+        
+        return HttpResponse("<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>")

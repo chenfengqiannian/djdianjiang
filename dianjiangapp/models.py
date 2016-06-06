@@ -10,7 +10,7 @@ m = md5.new()
 
 
 
-class    user(models.Model):
+class  user(models.Model):
     phone = models.CharField(u'手机',max_length=255)
     userpw = models.CharField(u'密码',max_length=255)
     
@@ -36,6 +36,7 @@ class    user(models.Model):
     rixin=models.IntegerField(u'日薪',default=0)
     shouzhijilu=ListField(u'收支记录',blank=True)
     pingjiaxingji=models.FloatField('评级',default=0.0)
+    tixianshenqing=models.BooleanField(u'提现状态')
     def __unicode__(self):
         
         return self.phone
@@ -105,9 +106,9 @@ class gongcheng(models.Model):
     fapiaodizhi=models.CharField(u'发票地址',max_length=255,blank=True)
     fapiaojisongshijian=models.CharField(u'发票寄送时间',max_length=255,blank=True)
     fapiaojine=models.CharField(u'发票金额',max_length=255,blank=True)
-    zhiding=ListField(u'指定',blank=True)
+    zhiding=ListField(u'工匠',blank=True)
     reship=models.ManyToManyField(user,blank=True)
-
+    zhaobiao=ListField(u'招标',blank=True)
     autotime=models.DateTimeField(auto_now=True)
     kaishitime=models.DateField(auto_now_add=True)
     jieshutime=models.DateField(auto_now_add=True)
@@ -125,7 +126,7 @@ class tupianclass(models.Model):
     tupianshuju=models.ImageField(upload_to='images',max_length=255)
     def __unicode__(self):
         
-        return self.id
+        return self.id.__str__()
 class shezhi(models.Model):
     name=models.CharField(max_length=255)
     neirong=models.TextField(u'内容',blank=True)
