@@ -36,7 +36,7 @@ class  user(models.Model):
     rixin=models.IntegerField(u'日薪',default=0)
     shouzhijilu=ListField(u'收支记录',blank=True)
     pingjiaxingji=models.FloatField('评级',default=0.0)
-    tixianshenqing=models.BooleanField(u'提现状态')
+    tixianshenqing=models.BooleanField(u'提现状态',default=False)
     def __unicode__(self):
         
         return self.phone

@@ -26,8 +26,8 @@ urlpatterns = [
     url(r'^gongchengapi/','dianjiangapp.views.gongchengapi'),
     url(r'^shezhiapi/','dianjiangapp.views.shezhiapi'),
     url(r'^signapi/','dianjiangapp.views.signapi'),
-    url(r'^zhifubaosignapi/','dianjiangapp.zhifubaosignapi'),
-    url(r'^weixinsignapi/','dianjiangapp.weixinsignapi')
+    url(r'^zhifubaosignapi/','dianjiangapp.views.zhifubaosignapi'),
+    url(r'^weixinsignapi/','dianjiangapp.views.weixinsignapi')
     
     
 ]
