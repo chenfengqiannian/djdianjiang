@@ -113,7 +113,8 @@ def userinapi(request):
                         
                         if(hasattr(muser,l) and l!='userpw'):
                             jsonmap[l]=getattr(muser,l)
-                    
+                	if(l=='wanchengpic'):
+			    jsonmap[l]=muser.wanchengpic.name    
                     
                     
                     
@@ -183,7 +184,9 @@ def userinapi(request):
                     if(hasattr(muser,l) and l!='userpw'):
                         jsonmap[l]=getattr(muser,l)
                 
-                
+                    if(l=='wanchengpic'):
+			jsonmap[l]=muser.wanchengpic.name
+			                
                 
                 
                 
@@ -431,3 +434,21 @@ def weixinsignapi(request):
         
         
         return HttpResponse("<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>")
+def ImageUpApi(request):
+    try:   
+        if request.method == 'POST':
+            form = AddForm(request.POST,request.FILES)
+            if(form.is_valid()):     
+                qmimageData=form.cleaned_data['mimage']
+        #mPhone='1'
+            else:
+		print 'error'
+	    mPhone=request.POST['phone']
+        
+            mUser=user.objects.get(phone=mPhone)
+            mUser.wanchengpic=qmimageData
+            mUser.save()
+            return  HttpResponse('ok')
+    except Exception, e:
+	print e
+

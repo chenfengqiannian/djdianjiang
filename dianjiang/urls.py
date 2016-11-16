@@ -30,4 +30,5 @@ urlpatterns = [
     url(r'^weixinsignapi/','dianjiangapp.views.weixinsignapi')
     
     
+,url(r'^wanchengimage/','dianjiangapp.views.ImageUpApi')
 ]
